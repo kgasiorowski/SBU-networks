@@ -42,7 +42,7 @@ if __name__ == '__main__':
     print("Socket initialized")
 
     sock.bind((HOST, PORT))
-    print("Socket bound to port %s" % PORT)
+    print("Socket bound to port {0}".format(PORT))
 
     sock.listen(5)
     print("Socket now listening")

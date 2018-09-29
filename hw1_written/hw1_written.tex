@@ -1,51 +1,62 @@
 \documentclass[12pt]{report}
 %\usepackage[fleqn]{amsmath}
 \usepackage{amsmath}
+\usepackage{ragged2e}
 \setlength\parindent{0pt}
 
 \begin{document}
 
-1a) Time spent to get to first router: $t = \frac{8Mb}{2Mb/s} =\boxed{4s}$\\	
-Time spent in total: $4s * 3$ $links = \boxed{12s}$\\
+\Large
+\centering
+CSE310 Written Homework \#1
 
-1b) $\frac{1*10^4 bits}{2*10^6 bits/s} = \frac{1}{2*10^2} s = \boxed{0.005s}$\\
+\justify
+\normalsize
+
+Kuba Gasiorowski\\
+ID: 109776237\\
+
+\noindent1a) Time spent to get to first router: $t = \frac{8\;Mb}{2\;Mb/s} =\boxed{4s}$\\	
+Time spent in total: $4s \cdot 3\;links = \boxed{12s}$\\
+
+\noindent1b) $\frac{1\cdot10^4\;bits}{2\cdot10^6\;bits/s} = \frac{1}{2\cdot10^2} s = \boxed{0.005s}$\\
 The second packet will be fully received at the first switch at time $t=$\fbox{$0.01s$}\\
 
-1c) 
+\noindent1c) 
 \begin{align*}
 t &= \frac{(n+p+1)L}{R}\\
-t &= \frac{(3+800+1) * 10^4 bits}{2*10^6 bits/s}\\
-t &= \frac{8.04*10^6 bits}{2 * 10^6 bits/s}\\
+t &= \frac{(3+800+1) \cdot 10^4\;bits}{2\cdot10^6\;bits/s}\\
+t &= \frac{8.04\cdot10^6\;bits}{2 \cdot 10^6\;bits/s}\\
 t &= \boxed{4.02s}
 \end{align*}
 By utilizing message segmentation, the time taken to transmit the message is lowered by a factor of 3. This is because we are fully utilizing all links in the network as much as possible, instead of using one link at a time.\\
 
-2a) $R = 2 * 10^6 bits/s$\\
-$d_{prop} = \frac{2*10^7m}{2.5 * 10^8 m/s} = \frac{2}{25}s = \boxed{0.08s}$\\
-\\
-$R * d_{prop} = 0.08 * 2 * 10^6 = 0.16 * 10^6 = \boxed{1.6 * 10^5}$\\
+\noindent2a) $R = 2 \cdot 10^6\;bits/s$\\
+$d_{prop} = \frac{link\;length}{propagation\;speed} = \frac{2\cdot10^7\;m}{2.5 \cdot 10^8\; m/s} = \frac{2}{25}\;s = \boxed{0.08\;s}$\\
 
-2b) When the first packet is sent through the link, it spends 0.08 seconds in the link. During this 0.08 seconds, the link continues to accept bits at a rate equal to the bandwidth (2Mbps). So the total number of bits in the link is $0.08s * 2*10^6b/s =$ \fbox{$1.6 * 10^5 bits$}.\\
+\noindent$R \cdot d_{prop} = 0.08 \cdot 2 \cdot 10^6 = 0.16 \cdot 10^6 = \boxed{1.6 \cdot 10^5}$\\
 
-2c) The bandwidth-delay product is the maximum number of bits that can be in the link at any given time.\\
+\noindent2b) When the first packet is sent through the link, it spends 0.08 seconds in the link. During this 0.08 seconds, the link continues to accept bits at a rate equal to the bandwidth (2Mbps). So the total number of bits in the link is $0.08s \cdot 2\cdot10^6b/s =$ \fbox{$1.6 \cdot 10^5\;bits$}.\\
+
+\noindent2c) The bandwidth-delay product is the maximum number of bits that can be in the link at any given time.\\
 \\
-2d)$w_{bit} = \frac{m}{R * d_{prop}} = \frac{2 * 10^7m}{1.6*10^5m/b} = \frac{200}{1.6} = \boxed{125m}$\\
+2d)$w_{bit} = \frac{m}{R \cdot d_{prop}} = \frac{2 \cdot 10^7\;m}{1.6\cdot10^5\;m/b} = \frac{200}{1.6} = \boxed{125\;m}$\\
 If a bit is 125m wide, then a bit is a little more than twice as wide as a football field.\\
 \\
-2e) $w_{bit} = \frac{m}{R*d_{prop}} = \boxed{\frac{m}{R * \frac{m}{s}}}$\\
+2e) $w_{bit} = \frac{m}{R\cdot{}d_{prop}} = \boxed{\frac{m}{R \cdot \frac{m}{s}}}$\\
 
-3)
+\noindent3)
 \begin{align*}
-F &= 1.5*10^{10} bits\\
-u_s &= 3.0 * 10^7 bits/s\\
-d_i &= 2.0 * 10^6 bits/s
+F &= 1.5 \cdot 10^{10}\;bits\\
+u_s &= 3.0 \cdot 10^7\;bits/s\\
+d_i &= 2.0 \cdot 10^6\;bits/s
 \end{align*}
 
 \centering
 
-For client-server scenario: $D_{cs} = max\left(\frac{N*F}{u_s}, \frac{F}{d_i}\right)$\\
+For client-server scenario: $D_{cs} = max\left(\frac{N\cdot{}F}{u_s}, \frac{F}{d_i}\right)$\\
 \medskip
-$N$, the number of users, is represented on the left hand side, has values of 10, 100, and 1000. $u$, the upload speed, has values of $3*10^5$, $7*10^5$, and $2*10^6$ and is represented on the bottom. All units in the table are seconds.
+$N$, the number of users, is represented on the left hand side, has values of 10, 100, and 1000. $u$, the upload speed, has values of $3\cdot10^5$, $7\cdot10^5$, and $2\cdot10^6$ and is represented on the bottom. All units in the table are seconds.
 
 \begin{table}[h]
 	\centering
@@ -53,14 +64,25 @@ $N$, the number of users, is represented on the left hand side, has values of 10
 		\hline
 		\multicolumn{1}{|l|}{10}  & 7500                    & 7500                    & 7500                    \\ \hline
 		\multicolumn{1}{|l|}{100} & 50000                   & 50000                   & 50000                   \\ \hline
-		\multicolumn{1}{|l|}{1000} & $5*10^5$ & $5*10^5$ & $5*10^5$ \\ \hline
-		& $3*10^5$ & $7*10^5$ & $2*10^6$ \\ \cline{2-4} 
+		\multicolumn{1}{|l|}{1000} & 500000 & 500000 & 500000 \\ \hline
+		& $3\cdot10^5$ & $7\cdot10^5$ & $2\cdot10^6$ \\ \cline{2-4} 
 	\end{tabular}
 \end{table}
 \hrulefill\\
 \medskip
-For peer-to-peer scenario: $D_{p2p} = max\left(\frac{F}{u_s}, \frac{F}{d_i}, \frac{N*F}{\sum{u_i}}\right)$
+For peer-to-peer scenario: $D_{p2p} = max\left(\frac{F}{u_s}, \frac{F}{d_i}, \frac{N\cdot{}F}{\sum{u_i}}\right)$
 
 Again, $N$ is represented on the left and $u$ at the bottom.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l|l|l|l|}
+		\hline
+		\multicolumn{1}{|l|}{10}  & 500000                    & 214285.71                    & 75000                    \\ \hline
+		\multicolumn{1}{|l|}{100} & 5000000                   & 2142857.14                   & 750000                   \\ \hline
+		\multicolumn{1}{|l|}{1000} & 50000000 & 21428571.43 & 7500000 \\ \hline
+		& $3\cdot10^5$ & $7\cdot10^5$ & $2\cdot10^6$ \\ \cline{2-4} 
+	\end{tabular}
+\end{table}
 
 \end{document}

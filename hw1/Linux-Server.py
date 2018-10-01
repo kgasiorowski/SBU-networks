@@ -156,7 +156,8 @@ if __name__ == '__main__':
 
                 # Send OK, close the connection and socket, and shut down the server
                 send_response(conn, 200)
-                conn.send(b'Server shutting down!');
+                conn.send(b'Server shutting down!\n')
+                print('Client sent the off signal. Goodbye!')
                 conn.close()
                 sock.close()
                 exit(0)

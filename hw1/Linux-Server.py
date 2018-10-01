@@ -1,7 +1,12 @@
+# CSE310 Programming HW 1
+# AUTHOR: Kuba Gasiorowski
+# ID: 109776237
+
+# See README.md for details.
+
 import socket
 import sys
 from enum import Enum
-
 
 # Server stuff
 HOST = ''

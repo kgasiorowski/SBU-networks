@@ -1,10 +1,5 @@
 # CSE310 Programming Homework #1
 
-## Author
-
-Name: Kuba Gasiorowski
-ID: 109776237
-
 ## Description
 
 Linux-Server.py is a python script which starts a simple server that is 
@@ -13,7 +8,7 @@ line arguments, or just run the program without arguments and the program
 will use the hard-coded default port of 8000. The server supports the 
 following commands:
 
-* GET [key] - Retrieve a value by using the a key
+* GET [key] - Retrieve a value by using a key
 * PUT [key] [value] - Set a key-value pair
 * DELETE [key] - Delete a key-value pair
 * CLEAR - Delete all key-value pairs
@@ -23,3 +18,8 @@ following commands:
 ## Testing
 
 Testing can be done as shown at the bottom of the homework PDF.
+
+## Author
+
+Name: Kuba Gasiorowski\n
+ID: 109776237

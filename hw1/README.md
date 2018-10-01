@@ -21,5 +21,6 @@ Testing can be done as shown at the bottom of the homework PDF.
 
 ## Author
 
-Name: Kuba Gasiorowski\n
+Name: Kuba Gasiorowski
+
 ID: 109776237

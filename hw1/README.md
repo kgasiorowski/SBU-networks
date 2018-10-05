@@ -5,8 +5,9 @@
 Linux-Server.py is a python script which starts a simple server that is 
 designed for use on Linux. You can pass in a preferred port via command 
 line arguments, or just run the program without arguments and the program
-will use the hard-coded default port of 8000. The server supports the 
-following commands:
+will use the hard-coded default port of 8000. If the server is unable to
+bind neither the custom port nor the default, it prompts the user for a 
+new port. The server supports the following commands:
 
 * GET [key] - Retrieve a value by using a key
 * PUT [key] [value] - Set a key-value pair

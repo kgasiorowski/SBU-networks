@@ -2,11 +2,15 @@ import os
 import struct
 import socket
 import time
-import subprocess
+import sys
+import select
 
-def create_icmp_socket():
-   return sock
+DEFAULT_HOSTNAME = "google.com"
+DEFAULT_TIMEOUT = 1000 # In milliseconds
+DEFAULT_PACKETCOUNT = 5
 
+# Taken from piazza
+# Creates the checksum
 def checksum(source_string):
     sum = 0
     countTo = int(len(source_string)/2)*2
@@ -26,79 +30,102 @@ def checksum(source_string):
     # answer = answer >> 8 | (answer << 8 & 0xff00)
     return answer
 
-# This code builds a packet. 'data' is the data in the field
+# Also taken from piazza
 def create_packet(): 
   ICMP_TYPE=8 # Indicates an echo request
   ICMP_CODE=0 # Indicates a ping reply
   ID=os.getpid()&0xFFFF # The ID will be set the ID of your running program. Since we are only given so much space, we only use the first 2 bytes
   SEQUENCE=1 # You don't have to continuously communicate with the server. By setting the SEQ number to 1, we can treat all attempts as separate.
   CHECKSUM=0 
-  data = bytes(str(time.time()), "utf-8");
+  data = bytes(str(time.time()), "utf-8"); # Set the creation time of this packet as the data
   header = struct.pack("bbHHh", ICMP_TYPE, ICMP_CODE, CHECKSUM, ID, SEQUENCE)
   CHECKSUM=checksum(header+data)
   header = struct.pack("bbHHh", ICMP_TYPE, ICMP_CODE, CHECKSUM, ID, SEQUENCE)
   packet=header+data
   return packet
 
+# Sends a single packet to the socket, returning the timestamp
 def send_one_ping(sock, addr):
   
   packet = create_packet()
   sock.sendto(packet, (addr, 1))
   return time.time()
   
+# Recieves one single packet from the socket, and returns the timestamp
+def receive_one_ping(sock):
 
-def recieve_one_ping(sock, timeout):
+  try:
+    packet, addr = sock.recvfrom(2048)
+  except socket.timeout:
+    return
 
-  packet, addr = sock.recvfrom(2048)
   timeRecieved = time.time()
 
   data = packet[28:]
 
-  print("Data recieved: {0}".format(data.decode()))
+  # print("Data received: {0}".format(data.decode()))
 
   return timeRecieved
  
 
 # Main code to ping a destination address, with timeout timeout tries times.
 def verbose_ping(hostname, timeout, tries):
-  
+
   icmp_sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("icmp"))  
+  icmp_sock.settimeout(timeout/1000.0)
 
   try:
     destination_IP = socket.gethostbyname(hostname)
   except socket.gaierror:
     print("No ip could be found for this hostname ({0})".format(hostname))
     return
-  
+ 
+  print("Pinging {0} ({1}) {2} times (timeout: {3}ms)...".format(hostname, destination_IP, tries, timeout))
+ 
   for i in range(tries):
     # Send a packet and record the time
     
     # print("Sending packet {0}: {1}, [{2}]".format(i+1, destination_IP, packet))
-    print("Sending packet {0}".format(i+1))
     sendTime = send_one_ping(icmp_sock, destination_IP)
+    # print("Sent packet {0}".format(i+1))
     
     # Recieve a packet and record the time
-    recieveTime = recieve_one_ping(icmp_sock, timeout) 
+    receiveTime = receive_one_ping(icmp_sock) 
 
     # Take the difference and print it
-    if(recieveTime is None):  
-      print("Timeout!")
+    if(receiveTime is None):  
+      print("Packet {0}: Timeout".format(i+1))
     else:
-      print("{0}ms\n".format(round((recieveTime - sendTime)*1000.0,2)))
+      print("Packet {0}: {1}ms".format(i+1, round((receiveTime - sendTime)*1000.0,2)))
 
     time.sleep(1)
 
-
-# Main program
 if __name__ == '__main__':
 
-  # Some basic testing constants
-  sample_hostname = "google.com"
-  sample_timeout = 1
-  sample_tries = 5
+  try:
+    hostname = sys.argv[1]  
+  except IndexError:
+    hostname = DEFAULT_HOSTNAME
+
+  try:
+    timeout = float(sys.argv[2])
+  except IndexError:
+    timeout = DEFAULT_TIMEOUT
+  except ValueError:
+    print("Invalid value for timeout")
+    exit()
+
+  try:
+    packetcount = int(sys.argv[3])
+  except IndexError:
+    packetcount = DEFAULT_PACKETCOUNT
+  except ValueError:
+    print("Invalid packet count")
+    exit()
 
   # Call the ping function
-  verbose_ping(sample_hostname, sample_timeout, sample_tries)
- 
-  print("Everything worked!")
+  try:
+    verbose_ping(hostname, timeout, packetcount)
+  except KeyboardInterrupt:
+    print("\nInterrupted")
  

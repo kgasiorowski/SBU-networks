@@ -1,0 +1,27 @@
+CSE310 Programming HW #2
+
+Name: Kuba Gasiorowski
+ID: 109776237
+
+Python version used: 3.5.2+
+
+Usage: sudo python3 ping.py [hostname] [timeout in milliseconds] [number of pings]
+
+If the hostname is left blank, it will default to "google.com".
+The default timeout is 1,000ms (1s).
+The default number of pings is 10.
+
+The program intentionally sleeps between pings for one second, so as to make
+output easier to read, and also not to flood the network with echo packets.
+
+All of the checksum code was taken from piazza and most of the create_packet
+function was also taken from piazza. The name for the function "verbose_ping"
+was also taken from piazza.
+
+The main function is wrapped in a try-catch so that even if the user interrupts
+the program with ctrl-c it should still print statistics for whatever was completed
+before exiting with grace.
+
+The date field in each packet wasn't really used except for debugging purposes. Right
+now it holds the time at which that specific packet was created.
+

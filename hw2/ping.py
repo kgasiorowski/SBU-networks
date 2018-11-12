@@ -1,9 +1,12 @@
+# Name: Kuba Gasiorowski
+# ID: 109776237
+# Date of final edit: 11/12/2018
+
 import os
 import struct
 import socket
 import time
 import sys
-import select
 
 DEFAULT_HOSTNAME = "google.com"
 DEFAULT_TIMEOUT = 1000 # In milliseconds
@@ -60,8 +63,8 @@ def verbose_ping(hostname, timeout, tries):
     print("Pinging {0} ({1}) {2} times (timeout: {3}ms)...".format(hostname, addr, tries, timeout))
  
     for i in range(tries):
-        # Send a packet and record the time
 
+        # Initialize a icmp socket
         icmp_sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("icmp"))  
         icmp_sock.settimeout(timeout/1000)
 

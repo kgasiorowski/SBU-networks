@@ -1,0 +1,80 @@
+\documentclass[12pt]{report}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\Large
+\centering
+CSE310 Written Homework \#2
+
+\justify
+\normalsize
+
+Kuba Gasiorowski\\
+ID: 109776237\\
+
+\noindent{}1a) $2^{8\cdot4} = 2^{32} = 4,294,967,296$ possible sequence numbers. MSS is irrelevant since the sequence number is incremented by the number of bytes sent. So, $\boxed{L\approx4.294\;GB}$
+
+\bigskip
+
+\noindent{}1b)
+
+\bigskip
+
+\noindent{}2)
+Let $SRTT = SampleRTT = \{106, 120, 140, 90, 155\}\\\\
+ERTT_i = EstimatedRTT\\
+DRTT_i = DevRTT\\
+ToI_i = TimeoutInterval\\
+$
+(Where $i$ represents each iteration, IE. $i=0$ represents initial conditions.)\\
+
+\noindent$ERTT_0 = 100\\
+\alpha = 0.125\\
+\beta = 0.25\\$
+
+\noindent
+To get the first estimated RTT:
+\begin{align*}
+ERTT_1 &= \alpha \cdot SRTT_1 + (1-\alpha)\cdot ERTT_0\\
+&= 0.125 \cdot 106 + 0.875 \cdot 100\\
+&= 13.25 + 87.5\\
+ERTT_1 &= \boxed{100.75}
+\end{align*}
+\noindent
+To get the first dev RTT:
+\begin{align*}
+DRTT_1 &= \beta \cdot \lvert SRTT_1 - ERTT_1 \rvert + (1-\beta) \cdot DRTT_0 \\
+&= 0.25 \cdot \lvert 106 - 100.75 \rvert + (1 - 0.25) \cdot 5 \\
+&= 0.25 \cdot 5.25 + 0.75 \cdot 5 \\
+&= 1.3125 + 3.75\\
+DRTT_1 &= \boxed{5.0625\;ms} 
+\end{align*}
+\noindent
+And to get the first Timeout Interval:
+\begin{align*}
+ToI_1 &= ERTT_1 + 4 \cdot DRTT_1\\
+&= 100.75 + 4 \cdot 5.0625\\
+ToI_1 &= \boxed{121\;ms}
+\end{align*}
+
+\noindent{}From here the calculation can be repeated for each of the other 5 values given for Sample RTT. The results are as follows: \\\\
+$
+ERTT_2 = 103.156\;ms \\
+ERTT_3 = 107.762\;ms \\
+ERTT_4 = 105.542\;ms \\
+ERTT_5 = 106.724\;ms \\\\
+DRTT_2 = 8\;ms \\
+DRTT_3 = 14.06\;ms \\
+DRTT_4 = 14.431\;ms \\
+DRTT_5 = 12.892\;ms \\\\
+ToI_2 = 135.156\;ms \\
+ToI_3 = 164\;ms \\
+ToI_4 = 163.266\;ms \\
+ToI_5 = 158.292\;ms \\\\
+$
+3)
+
+\end{document}

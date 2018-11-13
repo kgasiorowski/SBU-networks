@@ -15,12 +15,14 @@ CSE310 Written Homework \#2
 Kuba Gasiorowski\\
 ID: 109776237\\
 
-\noindent{}1a) $2^{8\cdot4} = 2^{32} = 4,294,967,296$ possible sequence numbers. MSS is irrelevant since the sequence number is incremented by the number of bytes sent. So, $\boxed{L\approx4.294\;GB}$
+\noindent{}1a) $2^{8\cdot4} = 2^{32} = 4,294,967,296$ possible sequence numbers. MSS is irrelevant since the sequence number is incremented by the number of bytes sent. So, $\boxed{L = 4,294,967,296\;B}$
 
 \bigskip
 
-\noindent{}1b)
+\noindent{}1b) The number of segments $S = \frac{2^{32}\;B}{MSS} = \frac{2^{32}\;B}{512\;B} = 8,388,608\;segments$\\
+Since each segment is 512 bytes of payload and 64 bytes of header, the final segment size is 576 bytes, which gives us a final file size of $576 \cdot 8,388,608 = 4,831,838,208$ bytes, or about 38,654.71 Megabits. Transferring this file over a 156Mb link would take $\frac{38,654.71\;Mb}{156\;Mb} \approx \boxed{247.79\;s}$
 
+\hrulefill
 \bigskip
 
 \noindent{}2)
@@ -38,6 +40,7 @@ $
 \noindent
 To get the first estimated RTT:
 \begin{align*}
+ERTT_n &= \alpha \cdot SRTT_n + (1-\alpha)\cdot ERTT_{n-1}\\
 ERTT_1 &= \alpha \cdot SRTT_1 + (1-\alpha)\cdot ERTT_0\\
 &= 0.125 \cdot 106 + 0.875 \cdot 100\\
 &= 13.25 + 87.5\\
@@ -46,6 +49,7 @@ ERTT_1 &= \boxed{100.75}
 \noindent
 To get the first dev RTT:
 \begin{align*}
+DRTT_n &= \beta \cdot \lvert SRTT_n - ERTT_n \rvert + (1-\beta) \cdot DRTT_{n-1} \\
 DRTT_1 &= \beta \cdot \lvert SRTT_1 - ERTT_1 \rvert + (1-\beta) \cdot DRTT_0 \\
 &= 0.25 \cdot \lvert 106 - 100.75 \rvert + (1 - 0.25) \cdot 5 \\
 &= 0.25 \cdot 5.25 + 0.75 \cdot 5 \\
@@ -55,26 +59,39 @@ DRTT_1 &= \boxed{5.0625\;ms}
 \noindent
 And to get the first Timeout Interval:
 \begin{align*}
+ToI_n &= ERTT_n + 4 \cdot DRTT_n\\
 ToI_1 &= ERTT_1 + 4 \cdot DRTT_1\\
 &= 100.75 + 4 \cdot 5.0625\\
 ToI_1 &= \boxed{121\;ms}
 \end{align*}
 
-\noindent{}From here the calculation can be repeated for each of the other 5 values given for Sample RTT. The results are as follows: \\\\
-$
-ERTT_2 = 103.156\;ms \\
-ERTT_3 = 107.762\;ms \\
-ERTT_4 = 105.542\;ms \\
-ERTT_5 = 106.724\;ms \\\\
-DRTT_2 = 8\;ms \\
-DRTT_3 = 14.06\;ms \\
-DRTT_4 = 14.431\;ms \\
-DRTT_5 = 12.892\;ms \\\\
-ToI_2 = 135.156\;ms \\
-ToI_3 = 164\;ms \\
-ToI_4 = 163.266\;ms \\
-ToI_5 = 158.292\;ms \\\\
-$
-3)
+\noindent{}From here the calculation can be repeated for each of the other 5 values given for Sample RTT, using the values calculated from the previous iteration. The results are as follows: 
+
+\begin{align*}
+ERTT_2 &= 103.156\;ms \\
+ERTT_3 &= 107.762\;ms \\
+ERTT_4 &= 105.542\;ms \\
+ERTT_5 &= 106.724\;ms \\\\
+DRTT_2 &= 8\;ms \\
+DRTT_3 &= 14.06\;ms \\
+DRTT_4 &= 14.431\;ms \\
+DRTT_5 &= 12.892\;ms \\\\
+ToI_2 &= 135.156\;ms \\
+ToI_3 &= 164\;ms \\
+ToI_4 &= 163.266\;ms \\
+ToI_5 &= 158.292\;ms 
+\end{align*}
+
+\pagebreak
+\noindent
+3) Subnet 1: 60 + 2 \textless\ 64\\
+Subnet 2: 90 + 2 \textless\ 128\\
+Subnet 3: 12 + 2 \textless\ 16\\
+\noindent\\
+Subnet 1 $\rightarrow$ 223.1.17.10?????? (6 bits for $\leq\;$63 addr) $\rightarrow$ \fbox{223.1.17.128/26}\\
+Subnet 2 $\rightarrow$ 223.1.17.0??????? (7 bits for $\leq\;$127 addr)$\rightarrow$ \fbox{223.1.17.0/25}\\
+Subnet 3 $\rightarrow$ 223.1.17.1100???? (4 bits for $\leq\;$15 addr)$\rightarrow$ \fbox{223.1.17.192/28}
+
+
 
 \end{document}

@@ -45,17 +45,6 @@ class Graph:
                     self.dist[dest] = self.dist[src] + weight  # Update distance
                     self.predecessors[dest] = src  # Update predecessors array
 
-    def print_arrs(self):
-        print("Vertex   Distance from Source")
-        for key, value in self.dist.items():
-            print("{0} \t\t {1}".format(key, value))
-
-        print()
-
-        print("Dest Src")
-        for key, value in self.predecessors.items():
-            print("{} {}".format(key, value))
-
     def get_dist_to(self, __node):
         if __node not in self.vertList:
             return
@@ -73,6 +62,7 @@ class Graph:
             dest = self.predecessors[dest]
 
         return reversed(nodepath)
+
 
 if __name__ == "__main__":
 
